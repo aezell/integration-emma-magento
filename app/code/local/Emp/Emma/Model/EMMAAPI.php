@@ -100,7 +100,7 @@ class Emp_Emma_Model_EMMAAPI {
 	function make_request($api_method, $http_method = NULL, $data = NULL){
     $this->emma_account_id = Mage::getStoreConfig('emmasection/emma/emma_api_key',Mage::app()->getStore());
     $this->emma_username =  Mage::getStoreConfig('emmasection/emma/emma_username',Mage::app()->getStore());
-    $this->emma_password =  Mage::getStoreConfig('emmasection/emma/emma_password',Mage::app()->getStore());    
+    $this->emma_password =  Mage::getStoreConfig('emmasection/emma/emma_password',Mage::app()->getStore());
     $get_query_string = '';
     if( $this->count ){
       $get_query_string = '?count=true';
@@ -813,8 +813,8 @@ class Emp_Emma_Model_EMMAAPI {
 	 **/
 	function remove_member_from_groups($member_id, $group_ids){
 	  $send_data['group_ids'] = $group_ids;
-    $data = $this->make_request('members/'.$member_id.'/remove','PUT', $send_data);
-    return $data;
+      $data = $this->make_request('members/'.$member_id.'/groups/remove','PUT', $send_data);
+      return $data;
 	}
 
 	/**
@@ -825,8 +825,8 @@ class Emp_Emma_Model_EMMAAPI {
 	 **/
 	function remove_all_members($member_status_id){
 	  $send_data['member_status_id'] = $member_status_id;
-    $data = $this->make_request('members','DELETE',$send_data);
-    return $data;
+      $data = $this->make_request('members','DELETE',$send_data);
+      return $data;
 	}
 
 	/**
