@@ -36,14 +36,6 @@ class Emp_Emma_Block_Adminhtml_Emma_Edit_Tab_Form extends Mage_Adminhtml_Block_W
 		    ));
 		}
 
-       /* $fieldset->addField('title', 'hidden', array(
-                  'disabled' => false,
-                  'readonly' => true,
-                  'after_element_html' => '<table>
-        <tr><td>Selected Groups are Mittu And Manu</td><tr>
-        </table>',
-                  'tabindex' => 1
-                ));  */
         $fieldset->addField('multiselect2', 'multiselect', array(
           'label'     => Mage::helper('emma')->__('Select Emma Groups'),
           'class'     => 'required-entry',

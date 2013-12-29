@@ -20,16 +20,18 @@ class Emp_Emma_OnepageController extends Mage_Checkout_OnepageController
 
             if ($this->getRequest()->getParam('is_subscribed', false)) {
                 $status = Mage::getModel('newsletter/subscriber')->subscribe($data['email']);
-                $emma_table_model = Mage::getModel('emma/emmasync');
-                $emma_data = $emma_table_model->load(1);;
-                $groups_ids=json_decode($emma_data->groups);
-                foreach($groups_ids as $groups_id)
-                {
-                    $groups_list[]=(integer)$groups_id;
-                }
-                 $emma_object=Mage::getModel('emma/EMMAAPI');
 
-                $members = array( array('email'=>$data['email']));
+				$emma_object = Mage::getModel('emma/EMMAAPI');
+
+                $members = array(
+                	array( 'email' => $customer->getEmail() ),
+                );
+
+                $groups_ids = explode(',', Mage::getStoreConfig('emmasection/emma_lists/emma_groups') );
+
+				foreach($groups_ids as $groups_id) {
+                   $groups_list[] = (integer) $groups_id;
+                }
                 $response = $emma_object->import_member_list($members, 'emma_register_add', 1, $groups_list);
             }
             else

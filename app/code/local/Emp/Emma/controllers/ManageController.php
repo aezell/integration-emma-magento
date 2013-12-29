@@ -55,12 +55,8 @@ class Emp_Emma_ManageController extends Mage_Newsletter_ManageController
                    $groups_list[] = (integer) $groups_id;
                 }
 
-                Mage::log($groups_list, null, 'emma.log');
-
                 if(isset($member_details->member_id) && ($member_details->member_id))
                     $response = $emma_object->remove_member_from_groups($member_details->member_id, $groups_list );
-
-                Mage::log($response, null, 'emma.log');
 
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));
             }

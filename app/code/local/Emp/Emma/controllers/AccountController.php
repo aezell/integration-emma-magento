@@ -81,6 +81,7 @@ class Emp_Emma_AccountController extends Mage_Customer_AccountController
 
                 if (true === $validationResult) {
                     $customer->save();
+
                     if ($this->getRequest()->getParam('is_subscribed', false)) {
 
                         $emma_object = Mage::getModel('emma/EMMAAPI');
@@ -96,8 +97,6 @@ class Emp_Emma_AccountController extends Mage_Customer_AccountController
 	                    }
 
                         $response = $emma_object->import_member_list($members, 'emma_register_add', 1, $groups_list);
-
-                        Mage::log($response, null, 'emma.log');
 
                     }
 
