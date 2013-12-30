@@ -58,14 +58,25 @@
         <emma_register>
           <from><![CDATA[#^/customer/account/#]]></from>
           <to>/emma/account/</to>
-        </emma_register>  
+        </emma_register>
         <emma_manage>
           <from><![CDATA[#^/newsletter/manage/#]]></from>
           <to>/emma/manage/</to>
-        </emma_manage>     
-      </rewrite>  
+        </emma_manage>
+      </rewrite>
   </global>
     <frontend>
+        <events>
+            <newsletter_subscriber_save_after>
+                <observers>
+                    <newsletterSubscriberSave>
+                        <type>singleton</type>
+                        <class>Emp_Emma_Model_Observer</class>
+                        <method>newsletterSubscriberSaveAfter</method>
+                    </newsletterSubscriberSave>
+                </observers>
+            </newsletter_subscriber_save_after>
+        </events>
         <routers>
             <emma>
                 <use>standard</use>
@@ -82,7 +93,7 @@
                 </emma>
             </updates>
         </layout>
-    </frontend>  
+    </frontend>
   <admin>
 	<routers>
 	  <emma>
@@ -95,22 +106,9 @@
 	</routers>
   </admin>
   <adminhtml>
-	<menu>
-	  <emma module="emma">
-		<title>Emma</title>
-		<sort_order>100</sort_order>
-		<children>
-		  <emma module="emma">
-			<title>Configure Emma Groups</title>
-			<sort_order>0</sort_order>
-			<action>emma/adminhtml_emma</action>
-		  </emma>          
-		</children>
-	  </emma>
-	</menu>
 	<acl>
 	  <resources>
-      
+
 		<all>
 		  <title>Allow Everything</title>
 		</all>
@@ -127,14 +125,14 @@
                                 </children>
                         </config>
                     </children>
-                </system>          
+                </system>
 			<emma translate="title" module="emma">
 			  <title>Emma</title>
 			  <sort_order>1000</sort_order>
 			  <children>
               <emma translate="title">
                 <title>Configure Emma Groups</title>
-              </emma>          
+              </emma>
 			  </children>
 			</emma>
 		  </children>
@@ -149,4 +147,4 @@
 	  </updates>
 	</layout>
   </adminhtml>
-</config> 
+</config>

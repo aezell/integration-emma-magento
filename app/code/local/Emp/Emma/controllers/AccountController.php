@@ -1,7 +1,7 @@
 <?php
 require_once 'Mage/Customer/controllers/AccountController.php';
 class Emp_Emma_AccountController extends Mage_Customer_AccountController
-{   
+{
 
     /**
      * Create customer account action
@@ -81,19 +81,24 @@ class Emp_Emma_AccountController extends Mage_Customer_AccountController
 
                 if (true === $validationResult) {
                     $customer->save();
+
                     if ($this->getRequest()->getParam('is_subscribed', false)) {
-                        $emma_table_model = Mage::getModel('emma/emmasync');
-                        $data = $emma_table_model->load(1);;    
-                        $groups_ids=json_decode($data->groups);        
-                        foreach($groups_ids as $groups_id)
-                        {
-                            $groups_list[]=(integer)$groups_id;
-                        }     
-                         $emma_object=Mage::getModel('emma/EMMAAPI'); 
-                        // $fields=array('first_name'=>'')
-                        $members = array( array('email'=>$customer->getEmail()));
-                        $response = $emma_object->import_member_list($members, 'emma_register_add', 1, $groups_list);                        
-                    }                    
+
+                        $emma_object = Mage::getModel('emma/EMMAAPI');
+
+                        $members = array(
+                        	array( 'email' => $customer->getEmail() ),
+                        );
+
+                        $groups_ids = explode(',', Mage::getStoreConfig('emmasection/emma_lists/emma_groups') );
+
+						foreach($groups_ids as $groups_id) {
+	                       $groups_list[] = (integer) $groups_id;
+	                    }
+
+                        $response = $emma_object->import_member_list($members, 'emma_register_add', 1, $groups_list);
+
+                    }
 
                     Mage::dispatchEvent('customer_register_success',
                         array('account_controller' => $this, 'customer' => $customer)
