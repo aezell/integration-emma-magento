@@ -66,6 +66,17 @@
       </rewrite>
   </global>
     <frontend>
+        <events>
+            <newsletter_subscriber_save_after>
+                <observers>
+                    <newsletterSubscriberSave>
+                        <type>singleton</type>
+                        <class>Emp_Emma_Model_Observer</class>
+                        <method>newsletterSubscriberSaveAfter</method>
+                    </newsletterSubscriberSave>
+                </observers>
+            </newsletter_subscriber_save_after>
+        </events>
         <routers>
             <emma>
                 <use>standard</use>

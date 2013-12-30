@@ -3,6 +3,7 @@
 require_once 'Mage/Newsletter/controllers/ManageController.php';
 class Emp_Emma_ManageController extends Mage_Newsletter_ManageController
 {
+
     public function preDispatch()
     {
         parent::preDispatch();
